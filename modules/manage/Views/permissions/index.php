@@ -1,25 +1,6 @@
 <?= $this->extend('layouts/main'); ?>
 
 <?= $this->section('content'); ?>
-<style>
-    .pagination li a {
-        position: relative;
-        display: block;
-        padding: .5rem .75rem;
-        margin-left: -1px;
-        line-height: 1.25;
-        color: #007bff;
-        background-color: #fff;
-        border: 1px solid #dee2e6;
-    }
-
-    .pagination li.active a {
-        z-index: 1;
-        color: #fff;
-        background-color: #007bff;
-        border-color: #007bff;
-    }
-</style>
 <form role="form" id="deleteForm" action="<?= route_to('admin.permissions.delete', 0); ?>" method="post">
     <?= csrf_field(); ?>
 </form>
@@ -54,51 +35,17 @@
                     </div>
                     <!-- /.card-header -->
                     <div class="card-body">
-                        <div class="input-group input-group-sm mb-3" style="width: 150px;">
-                            <input type="text" name="table_search" class="form-control float-right" placeholder="Search">
-                            <div class="input-group-append">
-                                <button type="submit" class="btn btn-default">
-                                    <i class="fas fa-search"></i>
-                                </button>
-                            </div>
-                        </div>
-                        <table class="table table-striped table-bordered">
-                            <tr>
-                                <th>ID</th>
-                                <th>Name</th>
-                                <th>Email</th>
-                                <th>Gender</th>
-                                <th>Edit</th>
-                                <th>Delete</th>
-                            </tr>
-                            <?php
-
-                            if ($user_data) {
-                                foreach ($user_data as $user) {
-                                    echo '
+                        <table id="table" class="table table-hover" data-toggle="table" data-url="<?= route_to('admin.permissions.list'); ?>" data-page-list="[5,10, 25, 50, 100, all]" data-pagination="true" data-search="true" data-show-refresh="true" data-show-columns="true" data-show-columns-toggle-all="true" data-sort-order="desc" data-buttons-class="primary" data-side-pagination="server" data-addrbar="1" data-show-footer="" data-toolbar="#customerDeleteMultiple">
+                            <thead>
                                 <tr>
-                                    <td>' . $user->id . '</td>
-                                    <td>' . $user->name . '</td>
-                                    <td>' . $user->email . '</td>
-                                    <td>' . $user->gender . '</td>
-                                    <td></td>
-                                    <td></td>
-                                </tr>';
-                                }
-                            }
-
-                            ?>
+                                    <th data-checkbox="true"></th>
+                                    <th data-sortable="true" data-field="permission_name">Name</th>
+                                    <th data-sortable="true" data-field="permission_display_name">Display Name</th>
+                                    <th data-width="150" data-formatter="customerActionFormatter" data-events="handleEvents">Action</th>
+                                </tr>
+                            </thead>
                         </table>
                     </div>
-                    <?php
-
-                    if ($pagination_link) {
-                        $pagination_link->setPath('admin/permissions');
-
-                        echo $pagination_link->links();
-                    }
-
-                    ?>
                     <!-- /.card-body -->
                 </div>
                 <!-- /.card -->
@@ -112,3 +59,30 @@
 <!-- /.content -->
 
 <?= $this->endSection(); ?>
+
+<?= $this->section('script'); ?>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.18.3/bootstrap-table.min.css" rel="stylesheet">
+<script src="https://unpkg.com/bootstrap-table@1.18.3/dist/bootstrap-table.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.18.3/extensions/addrbar/bootstrap-table-addrbar.min.js"></script>
+
+<script>
+    var $table = $('#table')
+    var $remove = $('#remove')
+    var selections = []
+
+
+    $(function() {
+        $table.on(
+            'check.bs.table uncheck.bs.table check-all.bs.table uncheck-all.bs.table',
+            function() {
+                $remove.prop('disabled', !$table.bootstrapTable('getSelections').length);
+            }
+        );
+        $remove.click(function() {
+            var ids = $.map($table.bootstrapTable('getSelections'), function(row) {
+                return row.id;
+            });
+        });
+    });
+
+    <?= $this->endSection(); ?>

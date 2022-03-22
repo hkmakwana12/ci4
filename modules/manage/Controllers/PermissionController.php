@@ -3,7 +3,6 @@
 namespace Modules\Manage\Controllers;
 
 use App\Controllers\AdminController;
-use Modules\Manage\Models\CrudModel;
 use Modules\Manage\Models\Permission;
 
 class PermissionController extends AdminController
@@ -18,11 +17,7 @@ class PermissionController extends AdminController
             'heading' => 'System Permissions',
         ];
 
-        $crudModel = new CrudModel();
-
-        $data['user_data'] = $crudModel->orderBy('id', 'DESC')->paginate(10);
-
-        $data['pagination_link'] = $crudModel->pager;
+        $permission = new  Permission();
 
         return view($this->viewPath . '\index', $data);
     }
