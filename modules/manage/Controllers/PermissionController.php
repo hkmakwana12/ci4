@@ -13,11 +13,17 @@ class PermissionController extends AdminController
      */
     public function index()
     {
-        $data = [
-            'heading' => 'System Permissions',
-        ];
+        $permission = new Permission();
 
-        $permission = new  Permission();
+        $search  = $this->request->getVar('search') ?? "";
+
+        $data['permissions'] = $permission->orderBy('id', 'DESC')
+            ->orLike('permission_name', $search)
+            ->orLike('permission_display_name', $search)
+            ->paginate();
+
+        $data['pagination_link'] = $permission->pager;
+        $data['search'] = $search;
 
         return view($this->viewPath . '\index', $data);
     }
@@ -123,11 +129,15 @@ class PermissionController extends AdminController
     /*
     * delete Permission
     */
-    public function delete($id = null)
+    public function delete()
     {
-        $permission = new Permission();
-        $permission->where('id', $id);
-        $permission->delete();
+        $input = $this->request->getVar(null, FILTER_SANITIZE_STRING);
+        echo '<pre>';
+        print_r($input);
+        die;
+        // $permission = new Permission();
+        // $permission->where('id', $id);
+        // $permission->delete();
 
         $session = session();
         $session->setFlashdata('success', 'Successfully deleted the permission');

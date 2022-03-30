@@ -1,13 +1,6 @@
 <?php
 
-$routes->group("users", ["namespace" => "\Modules\Manage\Controllers"], function ($routes) {
-
-    $routes->get("/", "UserController::index");
-    $routes->get("a", "UserController::list");
-});
-
-
-$routes->group("admin/permissions", ["namespace" => "\Modules\Manage\Controllers"], function ($routes) {
+$routes->group("admin/permissions", ["namespace" => "\Modules\Manage\Controllers", "filter" => "auth"], function ($routes) {
     /*
     * Permission Controller
     */
