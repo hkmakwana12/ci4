@@ -55,6 +55,7 @@
                                 </form>
                             </div>
                         </div>
+                        <?php $sortVal = $sort == 'ASC' ? "DESC" : "ASC"; ?>
                         <div class="row">
                             <div class="col-md-12 table-responsive">
                                 <table class="table table-striped table-bordered">
@@ -66,8 +67,8 @@
                                                 </label>
                                             </div>
                                         </th>
-                                        <th>Name</th>
-                                        <th>Display Name</th>
+                                        <th><a href="?sort=<?= $sortVal ?>&field=permission_name&search=<?= $search ?>">Name</a></th>
+                                        <th><a href="?sort=<?= $sortVal ?>&field=permission_display_name&search=<?= $search ?>">Display Name</a></th>
                                         <th>Description</th>
                                         <th>Action</th>
                                     </tr>

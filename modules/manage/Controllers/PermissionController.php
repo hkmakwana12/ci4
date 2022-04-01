@@ -15,15 +15,19 @@ class PermissionController extends AdminController
     {
         $permission = new Permission();
 
-        $search  = $this->request->getVar('search') ?? "";
+        $search = $this->request->getVar('search') ?? "";
+        $sort = $this->request->getVar('sort');
+        $field = $this->request->getVar('field');
 
-        $data['permissions'] = $permission->orderBy('id', 'DESC')
+        $data['permissions'] = $permission->orderBy($field ?? 'id', $sort ?? 'DESC')
             ->orLike('permission_name', $search)
             ->orLike('permission_display_name', $search)
             ->paginate();
 
         $data['pagination_link'] = $permission->pager;
         $data['search'] = $search;
+        $data['sort'] = $sort;
+        $data['field'] = $field;
 
         return view($this->viewPath . '\index', $data);
     }
@@ -132,25 +136,14 @@ class PermissionController extends AdminController
     public function delete()
     {
         $input = $this->request->getVar(null, FILTER_SANITIZE_STRING);
-        echo '<pre>';
-        print_r($input);
-        die;
-        // $permission = new Permission();
-        // $permission->where('id', $id);
-        // $permission->delete();
+
+        $permission = new Permission();
+        $permission->whereIn('id', explode(",", $input['delete_id']));
+        $permission->delete();
 
         $session = session();
         $session->setFlashdata('success', 'Successfully deleted the permission');
 
         return redirect()->route('admin.permissions');
-    }
-
-    public function list()
-    {
-        $permission = new Permission();
-
-        $this->data = $permission->paginate(10, 'id', 1, 0);
-
-        echo json_encode($this->data);
     }
 }
