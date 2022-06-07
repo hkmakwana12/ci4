@@ -1,19 +1,18 @@
 <?php
 
-namespace Modules\Manage\Models;
+namespace Modules\Restaurant\Models;
 
 use CodeIgniter\Model;
 
-class Permission extends Model
+class Store extends Model
 {
-    protected $table = 'permissions';
+    protected $table = 'stores';
     protected $returnType = 'object';
-    protected $useSoftDeletes = false;
+    protected $useSoftDeletes = true;
 
     protected $allowedFields = [
-        'permission_name',
-        'permission_display_name',
-        'permission_description',
+        'store_name',
+        'is_active',
     ];
     protected $useTimestamps = true;
     protected $createdField = 'created_at';

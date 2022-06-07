@@ -19,10 +19,12 @@ class PermissionController extends AdminController
         $sort = $this->request->getVar('sort');
         $field = $this->request->getVar('field');
 
-        $data['permissions'] = $permission->orderBy($field ?? 'id', $sort ?? 'DESC')
-            ->orLike('permission_name', $search)
-            ->orLike('permission_display_name', $search)
-            ->paginate();
+        $permission->orderBy($field ?? 'id', $sort ?? 'DESC');
+        $permission->groupStart();
+        $permission->orLike('permission_name', $search);
+        $permission->orLike('permission_display_name', $search);
+        $permission->groupEnd();
+        $data['permissions'] = $permission->paginate();
 
         $data['pagination_link'] = $permission->pager;
         $data['search'] = $search;

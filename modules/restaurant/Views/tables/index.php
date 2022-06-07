@@ -1,7 +1,7 @@
 <?= $this->extend('layouts/main'); ?>
 
 <?= $this->section('content'); ?>
-<form user="form" id="deleteForm" action="<?= route_to('admin.users.delete', 0); ?>" method="post">
+<form role="form" id="deleteForm" action="<?= route_to('admin.tables.delete', 0); ?>" method="post">
     <?= csrf_field(); ?>
     <input type="hidden" name="delete_id" id="delete_id" />
 </form>
@@ -10,12 +10,12 @@
     <div class="container-fluid">
         <div class="row mb-2">
             <div class="col-sm-6">
-                <h1 class="m-0">Users</h1>
+                <h1 class="m-0">Tables</h1>
             </div><!-- /.col -->
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
                     <li class="breadcrumb-item"><a href="<?= route_to('admin.dash') ?>">Home</a></li>
-                    <li class="breadcrumb-item active">Users</li>
+                    <li class="breadcrumb-item active">Tables</li>
                 </ol>
             </div><!-- /.col -->
         </div><!-- /.row -->
@@ -30,9 +30,9 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-header">
-                        <h3 class="card-title">Users</h3>
+                        <h3 class="card-title">Tables</h3>
                         <div class="card-tool">
-                            <a class="btn btn-primary btn-sm float-right" href="<?= route_to('admin.users.create'); ?>"><span class="fas fa-plus">&nbsp;</span>Add</a>
+                            <a class="btn btn-primary btn-sm float-right" href="<?= route_to('admin.tables.create'); ?>"><span class="fas fa-plus">&nbsp;</span>Add</a>
                         </div>
                     </div>
                     <!-- /.card-header -->
@@ -68,30 +68,30 @@
                                                 </label>
                                             </div>
                                         </th>
-                                        <th>First Name</th>
-                                        <th>Last Name</th>
-                                        <th>Email Id</th>
-                                        <th>Phone Number</th>
+                                        <th>Table Number</th>
+                                        <th>Table Name</th>
+                                        <th>Table Capacity</th>
+                                        <th>Table Description</th>
                                         <th>Action</th>
                                     </tr>
                                     <?php
-                                    if ($users) : ?>
-                                        <?php foreach ($users as $user) : ?>
+                                    if ($tables) : ?>
+                                        <?php foreach ($tables as $table) : ?>
                                             <tr>
                                                 <td class="text-center">
                                                     <div class="icheck-primary d-inline">
-                                                        <input type="checkbox" class="sub_checkbox" id="sub_checkbox<?= $user->id ?>" data-id="<?= $user->id ?>">
-                                                        <label for="sub_checkbox<?= $user->id ?>">
+                                                        <input type="checkbox" class="sub_checkbox" id="sub_checkbox<?= $table->id ?>" data-id="<?= $table->id ?>">
+                                                        <label for="sub_checkbox<?= $table->id ?>">
                                                         </label>
                                                     </div>
                                                 </td>
-                                                <td><?= $user->user_firstname ?></td>
-                                                <td><?= $user->user_lastname ?></td>
-                                                <td><?= $user->user_email ?></td>
-                                                <td><?= $user->user_phone ?></td>
+                                                <td><?= $table->table_number ?></td>
+                                                <td><?= $table->table_name ?></td>
+                                                <td><?= $table->table_capacity ?></td>
+                                                <td><?= $table->table_description ?></td>
                                                 <td width="150px">
-                                                    <a href="<?= route_to('admin.users.edit', $user->id) ?>" class="btn btn-sm btn-primary">Edit</a>
-                                                    <button type="button" class="btn btn-sm btn-danger deleteItem" data-toggle="modal" data-target="#modal-delete" data-id="<?= $user->id ?>">Delete</button>
+                                                    <a href="<?= route_to('admin.tables.edit', $table->id) ?>" class="btn btn-sm btn-primary">Edit</a>
+                                                    <button type="button" class="btn btn-sm btn-danger deleteItem" data-toggle="modal" data-target="#modal-delete" data-id="<?= $table->id ?>">Delete</button>
                                                 </td>
                                             </tr>
                                         <?php endforeach;
@@ -108,7 +108,7 @@
                     <div class="card-footer clearfix">
                         <?php
                         if ($pagination_link) {
-                            $pagination_link->setPath('admin/users');
+                            $pagination_link->setPath('admin/tables');
                             echo $pagination_link->links();
                         }
                         ?>

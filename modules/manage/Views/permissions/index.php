@@ -25,6 +25,7 @@
 <!-- Main content -->
 <section class="content">
     <div class="container-fluid">
+        <?= $this->include('partials/flashmessage'); ?>
         <div class="row">
             <div class="col-12">
                 <div class="card">
@@ -67,8 +68,8 @@
                                                 </label>
                                             </div>
                                         </th>
-                                        <th><a href="?sort=<?= $sortVal ?>&field=permission_name&search=<?= $search ?>">Name</a></th>
-                                        <th><a href="?sort=<?= $sortVal ?>&field=permission_display_name&search=<?= $search ?>">Display Name</a></th>
+                                        <th>Name</th>
+                                        <th>Display Name</th>
                                         <th>Description</th>
                                         <th>Action</th>
                                     </tr>

@@ -20,6 +20,30 @@
                     </a>
                 </li>
                 <li class="nav-item">
+                    <a href="<?= route_to('admin.stores') ?>" class="nav-link">
+                        <i class="nav-icon fas fa-map-marker"></i>
+                        <p>Stores</p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="<?= route_to('admin.tables') ?>" class="nav-link">
+                        <i class="nav-icon fas fa-table"></i>
+                        <p>Tables</p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="<?= route_to('admin.users') ?>" class="nav-link">
+                        <i class="nav-icon fas fa-users"></i>
+                        <p>Users</p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="<?= route_to('admin.roles') ?>" class="nav-link">
+                        <i class="nav-icon fas fa-user-lock"></i>
+                        <p>Roles</p>
+                    </a>
+                </li>
+                <li class="nav-item">
                     <a href="<?= route_to('admin.permissions') ?>" class="nav-link">
                         <i class="nav-icon fas fa-lock"></i>
                         <p>Permissions</p>

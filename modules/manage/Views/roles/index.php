@@ -2,93 +2,162 @@
 
 <?= $this->section('content'); ?>
 <form role="form" id="deleteForm" action="<?= route_to('admin.roles.delete', 0); ?>" method="post">
-  <?= csrf_field(); ?>
+    <?= csrf_field(); ?>
+    <input type="hidden" name="delete_id" id="delete_id" />
 </form>
 <!-- Content Header (Page header) -->
-<section class="content-header">
-  <div class="container-fluid">
-    <div class="row mb-2">
-      <div class="col-sm-6">
-        <h1><?= $heading; ?></h1>
-      </div>
-      <div class="col-sm-6">
-        <ol class="breadcrumb float-sm-right">
-          <?= $breadcrumb; ?>
-        </ol>
-      </div>
-    </div>
-  </div><!-- /.container-fluid -->
-</section>
+<div class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1 class="m-0">Roles</h1>
+            </div><!-- /.col -->
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a href="<?= route_to('admin.dash') ?>">Home</a></li>
+                    <li class="breadcrumb-item active">Roles</li>
+                </ol>
+            </div><!-- /.col -->
+        </div><!-- /.row -->
+    </div><!-- /.container-fluid -->
+</div>
+<!-- /.content-header -->
 <!-- Main content -->
 <section class="content">
-  <div class="container-fluid">
-    <div class="row">
-      <div class="col-12">
-        <div class="card">
-          <div class="card-header">
-            <h3 class="card-title"><?= $heading; ?></h3>
-            <div class="card-tool">
-              <a class="btn btn-primary mb-2 float-right" href="<?= route_to('admin.roles.create'); ?>"><span class="fas fa-plus">&nbsp;</span>Add</a>
+    <div class="container-fluid">
+        <?= $this->include('partials/flashmessage'); ?>
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">Roles</h3>
+                        <div class="card-tool">
+                            <a class="btn btn-primary btn-sm float-right" href="<?= route_to('admin.roles.create'); ?>"><span class="fas fa-plus">&nbsp;</span>Add</a>
+                        </div>
+                    </div>
+                    <!-- /.card-header -->
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-sm-8 mb-4">
+                                <button type="button" id="deleteBtn" class="btn btn-danger" disabled data-toggle="modal" data-target="#modal-delete">
+                                    <i class="fa fa-trash"></i>
+                                </button>
+                            </div>
+                            <div class="col-sm-4 mb-4 pull-right">
+                                <form action="">
+                                    <div class="input-group">
+                                        <input type="search" name="search" class="form-control" placeholder="Search your keywords here" value="<?= $search ?>">
+                                        <div class="input-group-append">
+                                            <button type="submit" class="btn btn-default">
+                                                <i class="fa fa-search"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                        <?php $sortVal = $sort == 'ASC' ? "DESC" : "ASC"; ?>
+                        <div class="row">
+                            <div class="col-md-12 table-responsive">
+                                <table class="table table-striped table-bordered">
+                                    <tr>
+                                        <th class="text-center">
+                                            <div class="icheck-primary d-inline">
+                                                <input type="checkbox" id="master_checkbox">
+                                                <label for="master_checkbox">
+                                                </label>
+                                            </div>
+                                        </th>
+                                        <th>Name</th>
+                                        <th>Display Name</th>
+                                        <th>Description</th>
+                                        <th>Action</th>
+                                    </tr>
+                                    <?php
+                                    if ($roles) : ?>
+                                        <?php foreach ($roles as $role) : ?>
+                                            <tr>
+                                                <td class="text-center">
+                                                    <div class="icheck-primary d-inline">
+                                                        <input type="checkbox" class="sub_checkbox" id="sub_checkbox<?= $role->id ?>" data-id="<?= $role->id ?>">
+                                                        <label for="sub_checkbox<?= $role->id ?>">
+                                                        </label>
+                                                    </div>
+                                                </td>
+                                                <td><?= $role->role_name ?></td>
+                                                <td><?= $role->role_display_name ?></td>
+                                                <td><?= $role->role_description ?></td>
+                                                <td width="150px">
+                                                    <a href="<?= route_to('admin.roles.edit', $role->id) ?>" class="btn btn-sm btn-primary">Edit</a>
+                                                    <button type="button" class="btn btn-sm btn-danger deleteItem" data-toggle="modal" data-target="#modal-delete" data-id="<?= $role->id ?>">Delete</button>
+                                                </td>
+                                            </tr>
+                                        <?php endforeach;
+                                    else : ?>
+                                        <tr>
+                                            <td colspan="5" class="text-center">No records found</td>
+                                        </tr>
+                                    <?php endif; ?>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /.card-body -->
+                    <div class="card-footer clearfix">
+                        <?php
+                        if ($pagination_link) {
+                            $pagination_link->setPath('admin/roles');
+                            echo $pagination_link->links();
+                        }
+                        ?>
+                    </div>
+                </div>
+                <!-- /.card -->
             </div>
-          </div>
-          <!-- /.card-header -->
-          <div class="card-body">
-            <table id="rolesTable" class="table table-bordered table-striped">
-              <thead>
-                <tr>
-                  <th>Name</th>
-                  <th>Display Name</th>
-                  <th>Action</th>
-                </tr>
-              </thead>
-            </table>
-          </div>
-          <!-- /.card-body -->
+            <!-- /.col -->
         </div>
-        <!-- /.card -->
-      </div>
-      <!-- /.col -->
+        <!-- /.row -->
     </div>
-    <!-- /.row -->
-  </div>
-  <!-- /.container-fluid -->
+    <!-- /.container-fluid -->
 </section>
 <!-- /.content -->
-<?= $this->include('admin/partials/delete_modal'); ?>
+<?= $this->include('partials/delete-modal'); ?>
 
 <?= $this->endSection(); ?>
 
 <?= $this->section('script'); ?>
-<!-- DataTables -->
-<script src="<?= base_url(); ?>/plugins/datatables/jquery.dataTables.min.js"></script>
-<script src="<?= base_url(); ?>/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
-<script src="<?= base_url(); ?>/plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
-<script src="<?= base_url(); ?>/plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
-<!-- page script -->
-<script>
-  $(function() {
-    $("#rolesTable").DataTable({
-      "responsive": true,
-      "autoWidth": false,
-      "processing": true,
-      "serverSide": true,
-      "ajax": {
-        "url": "<?= route_to('admin.roles.list'); ?>",
-        "data": function(d) {
-
-        }
-      },
-      "fnDrawCallback": function() {
-        $(".deleteRole").on('click', function() {
-          url = $("#deleteForm").attr('action');
-          url = url.split('/').slice(0, -1).join('/') + '/' + $(this).data("id");
-          $("#deleteForm").attr('action', url);
+<script type="text/javascript">
+    $(document).ready(function() {
+        $('#master_checkbox').on('click', function(e) {
+            if ($(this).is(':checked', true)) {
+                $(".sub_checkbox").prop('checked', true);
+            } else {
+                $(".sub_checkbox").prop('checked', false);
+            }
         });
-      }
+
+        // Checkbox 
+        var selected = [];
+        $(".sub_checkbox,#master_checkbox").change(function() {
+            selected = [];
+            $('.sub_checkbox:checked').each(function() {
+                selected.push($(this).data("id"));
+            });
+            if (selected.length > 0)
+                $("#deleteBtn").prop("disabled", false);
+            else
+                $("#deleteBtn").prop("disabled", true);
+
+        })
+        $("#deleteBtn").click(function() {
+            $("#delete_id").val(selected);
+        })
+        $(".deleteItem").click(function() {
+            $("#delete_id").val($(this).data("id"));
+        })
+        $("#confirmDeleteBtn").click(function() {
+            $("#deleteForm").submit()
+        })
     });
-    $(".confirmDelete").click(function() {
-      $("#deleteForm").submit();
-    });
-  });
 </script>
 <?= $this->endSection(); ?>
