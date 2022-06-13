@@ -1,7 +1,7 @@
 <?= $this->extend('layouts/main'); ?>
 
 <?= $this->section('content'); ?>
-<form role="form" id="deleteForm" action="<?= route_to('admin.tables.delete', 0); ?>" method="post">
+<form role="form" id="deleteForm" action="<?= route_to('admin.categories.delete', 0); ?>" method="post">
     <?= csrf_field(); ?>
     <input type="hidden" name="delete_id" id="delete_id" />
 </form>
@@ -10,12 +10,12 @@
     <div class="container-fluid">
         <div class="row mb-2">
             <div class="col-sm-6">
-                <h1 class="m-0">Tables</h1>
+                <h1 class="m-0">Categories</h1>
             </div><!-- /.col -->
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
                     <li class="breadcrumb-item"><a href="<?= route_to('admin.dash') ?>">Home</a></li>
-                    <li class="breadcrumb-item active">Tables</li>
+                    <li class="breadcrumb-item active">Categories</li>
                 </ol>
             </div><!-- /.col -->
         </div><!-- /.row -->
@@ -30,9 +30,9 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-header">
-                        <h3 class="card-title">Tables</h3>
+                        <h3 class="card-title">Categories</h3>
                         <div class="card-tool">
-                            <a class="btn btn-primary btn-sm float-right" href="<?= route_to('admin.tables.create'); ?>"><span class="fas fa-plus">&nbsp;</span>Add</a>
+                            <a class="btn btn-primary btn-sm float-right" href="<?= route_to('admin.categories.create'); ?>"><span class="fas fa-plus">&nbsp;</span>Add</a>
                         </div>
                     </div>
                     <!-- /.card-header -->
@@ -69,35 +69,31 @@
                                             </div>
                                         </th>
                                         <th>Store</th>
-                                        <th>Table Number</th>
-                                        <th>Table Name</th>
-                                        <th>Table Capacity</th>
+                                        <th>Category Name</th>
                                         <th>Action</th>
                                     </tr>
                                     <?php
-                                    if ($tables) : ?>
-                                        <?php foreach ($tables as $table) : ?>
+                                    if ($categories) : ?>
+                                        <?php foreach ($categories as $category) : ?>
                                             <tr>
                                                 <td class="text-center">
                                                     <div class="icheck-primary d-inline">
-                                                        <input type="checkbox" class="sub_checkbox" id="sub_checkbox<?= $table->id ?>" data-id="<?= $table->id ?>">
-                                                        <label for="sub_checkbox<?= $table->id ?>">
+                                                        <input type="checkbox" class="sub_checkbox" id="sub_checkbox<?= $category->id ?>" data-id="<?= $category->id ?>">
+                                                        <label for="sub_checkbox<?= $category->id ?>">
                                                         </label>
                                                     </div>
                                                 </td>
-                                                <td><?= $table->store_name ?></td>
-                                                <td><?= $table->table_number ?></td>
-                                                <td><?= $table->table_name ?></td>
-                                                <td><?= $table->table_capacity ?></td>
+                                                <td><?= $category->store_name ?></td>
+                                                <td><?= $category->category_name ?></td>
                                                 <td width="150px">
-                                                    <a href="<?= route_to('admin.tables.edit', $table->id) ?>" class="btn btn-sm btn-primary">Edit</a>
-                                                    <button type="button" class="btn btn-sm btn-danger deleteItem" data-toggle="modal" data-target="#modal-delete" data-id="<?= $table->id ?>">Delete</button>
+                                                    <a href="<?= route_to('admin.categories.edit', $category->id) ?>" class="btn btn-sm btn-primary">Edit</a>
+                                                    <button type="button" class="btn btn-sm btn-danger deleteItem" data-toggle="modal" data-target="#modal-delete" data-id="<?= $category->id ?>">Delete</button>
                                                 </td>
                                             </tr>
                                         <?php endforeach;
                                     else : ?>
                                         <tr>
-                                            <td colspan="6" class="text-center">No records found</td>
+                                            <td colspan="4" class="text-center">No records found</td>
                                         </tr>
                                     <?php endif; ?>
                                 </table>
@@ -108,7 +104,7 @@
                     <div class="card-footer clearfix">
                         <?php
                         if ($pagination_link) {
-                            $pagination_link->setPath('admin/tables');
+                            $pagination_link->setPath('admin/categories');
                             echo $pagination_link->links();
                         }
                         ?>

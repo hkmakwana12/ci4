@@ -32,6 +32,18 @@
                     </a>
                 </li>
                 <li class="nav-item">
+                    <a href="<?= route_to('admin.categories') ?>" class="nav-link">
+                        <i class="nav-icon fas fa-table"></i>
+                        <p>Categories</p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="<?= route_to('admin.items') ?>" class="nav-link">
+                        <i class="nav-icon fas fa-table"></i>
+                        <p>Items</p>
+                    </a>
+                </li>
+                <li class="nav-item">
                     <a href="<?= route_to('admin.users') ?>" class="nav-link">
                         <i class="nav-icon fas fa-users"></i>
                         <p>Users</p>

@@ -4,33 +4,32 @@ namespace Modules\Restaurant\Controllers;
 
 use App\Controllers\AdminController;
 use Modules\Restaurant\Models\Store;
-use Modules\Restaurant\Models\Table;
+use Modules\Restaurant\Models\Category;
 
-class TableController extends AdminController
+class CategoryController extends AdminController
 {
-    private $viewPath = 'Modules\Restaurant\Views\Tables';
+    private $viewPath = 'Modules\Restaurant\Views\Categories';
     /*
-     * Display Tables Details Action
+     * Display Categories Details Action
      */
     public function index()
     {
-        $table = new Table();
+        $category = new Category();
 
         $search = $this->request->getVar('search') ?? "";
         $sort = $this->request->getVar('sort');
         $field = $this->request->getVar('field');
 
-        $table->select('tables.*, stores.store_name');
-        $table->join('stores', 'stores.id = tables.store_id');
-        $table->orderBy($field ?? 'id', $sort ?? 'DESC');
-        $table->groupStart();
-        $table->orLike('store_name', $search);
-        $table->orLike('table_name', $search);
-        $table->orLike('table_number', $search);
-        $table->groupEnd();
-        $data['tables'] = $table->paginate();
+        $category->select('categories.*, stores.store_name');
+        $category->join('stores', 'stores.id = categories.store_id');
+        $category->orderBy($field ?? 'id', $sort ?? 'DESC');
+        $category->groupStart();
+        $category->orLike('store_name', $search);
+        $category->orLike('category_name', $search);
+        $category->groupEnd();
+        $data['categories'] = $category->paginate();
 
-        $data['pagination_link'] = $table->pager;
+        $data['pagination_link'] = $category->pager;
         $data['search'] = $search;
         $data['sort'] = $sort;
         $data['field'] = $field;
@@ -39,13 +38,13 @@ class TableController extends AdminController
     }
 
     /*
-    * Create New  Tables Action
+    * Create New  Categories Action
     */
     public function create()
     {
 
         $data = [
-            'heading' => 'Create New Tables',
+            'heading' => 'Create New Categories',
             'stores' => (new Store())->findAll(),
         ];
         helper(['form']);
@@ -60,17 +59,10 @@ class TableController extends AdminController
                         'required' => 'Please Select Store',
                     ],
                 ],
-                'table_number' => [
-                    'rules' => 'required|is_unique[tables.table_number]',
-                    'errors' => [
-                        'required' => 'Please Enter Valid Table Number',
-                        'is_unique' => 'Table Number should be unique',
-                    ],
-                ],
-                'table_capacity' => [
+                'category_name' => [
                     'rules' => 'required',
                     'errors' => [
-                        'required' => 'Please Enter Table Capacity',
+                        'required' => 'Please Enter Category',
                     ],
                 ],
             ];
@@ -79,14 +71,14 @@ class TableController extends AdminController
                 $data['validation'] = $this->validator;
             } else {
                 $input = $this->request->getVar(null, FILTER_SANITIZE_STRING);
-                $table = new Table();
+                $category = new Category();
 
-                $table->save($input);
+                $category->save($input);
 
                 $session = session();
-                $session->setFlashdata('success', 'Successfully created new table');
+                $session->setFlashdata('success', 'Successfully created new category');
 
-                return redirect()->route('admin.tables');
+                return redirect()->route('admin.categories');
             }
         }
 
@@ -94,19 +86,19 @@ class TableController extends AdminController
     }
 
     /*
-    * Update  Table information Action
+    * Update  Category information Action
     */
     public function edit($id = null)
     {
 
         $data = [
-            'heading' => 'Update Table',
+            'heading' => 'Update Category',
             'stores' => (new Store())->findAll(),
         ];
 
         $data['validation'] = \Config\Services::validation();
         helper(['form']);
-        $table = new Table();
+        $category = new Category();
         if ($this->request->getMethod() == 'post') {
             $rules = [
                 'store_id' => [
@@ -115,17 +107,10 @@ class TableController extends AdminController
                         'required' => 'Please Select Store',
                     ],
                 ],
-                'table_number' => [
-                    'rules' => 'required|is_unique[tables.table_number,id,' . $id . ']',
-                    'errors' => [
-                        'required' => 'Please Enter Valid Table Number',
-                        'is_unique' => 'Table Number should be unique',
-                    ],
-                ],
-                'table_capacity' => [
+                'category_name' => [
                     'rules' => 'required',
                     'errors' => [
-                        'required' => 'Please Enter Table Capacity',
+                        'required' => 'Please Enter Category',
                     ],
                 ],
             ];
@@ -136,32 +121,32 @@ class TableController extends AdminController
                 $input = $this->request->getVar(null, FILTER_SANITIZE_STRING);
                 $input['id'] = $id;
 
-                $table->save($input);
+                $category->save($input);
                 $session = session();
-                $session->setFlashdata('success', 'Successfully updated the table');
+                $session->setFlashdata('success', 'Successfully updated the category');
 
-                return redirect()->route('admin.tables');
+                return redirect()->route('admin.categories');
             }
         }
 
-        $data['table'] = $table->where('id', $id)->first();
+        $data['category'] = $category->where('id', $id)->first();
         return view($this->viewPath . '\edit', $data);
     }
 
     /*
-    * delete Table
+    * delete Category
     */
     public function delete()
     {
         $input = $this->request->getVar(null, FILTER_SANITIZE_STRING);
 
-        $table = new Table();
-        $table->whereIn('id', explode(",", $input['delete_id']));
-        $table->delete();
+        $category = new Category();
+        $category->whereIn('id', explode(",", $input['delete_id']));
+        $category->delete();
 
         $session = session();
-        $session->setFlashdata('success', 'Successfully deleted the table');
+        $session->setFlashdata('success', 'Successfully deleted the category');
 
-        return redirect()->route('admin.tables');
+        return redirect()->route('admin.categories');
     }
 }

@@ -4,19 +4,18 @@ namespace Modules\Restaurant\Models;
 
 use CodeIgniter\Model;
 
-class Table extends Model
+class Item extends Model
 {
-    protected $table = 'tables';
+    protected $table = 'items';
     protected $returnType = 'object';
     protected $useSoftDeletes = true;
 
     protected $allowedFields = [
         'store_id',
-        'table_number',
-        'table_name',
-        'table_description',
-        'table_capacity',
-        'is_running',
+        'category_id',
+        'item_name',
+        'item_description',
+        'item_price',
         'is_active',
     ];
     protected $useTimestamps = true;

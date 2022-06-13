@@ -21,3 +21,25 @@ $routes->group("admin/tables", ["namespace" => "\Modules\Restaurant\Controllers"
     $routes->match(['get', 'post'], 'edit/(:num)', 'TableController::edit/$1', ['as' => 'admin.tables.edit']);
     $routes->post('delete', 'TableController::delete', ['as' => 'admin.tables.delete']);
 });
+
+/**
+ * Category Routes
+ */
+$routes->group("admin/categories", ["namespace" => "\Modules\Restaurant\Controllers", "filter" => "auth"], function ($routes) {
+    $routes->get('/', 'CategoryController::index', ['as' => 'admin.categories']);
+    $routes->get('list', 'CategoryController::list', ['as' => 'admin.categories.list']);
+    $routes->match(['get', 'post'], 'create', 'CategoryController::create', ['as' => 'admin.categories.create']);
+    $routes->match(['get', 'post'], 'edit/(:num)', 'CategoryController::edit/$1', ['as' => 'admin.categories.edit']);
+    $routes->post('delete', 'CategoryController::delete', ['as' => 'admin.categories.delete']);
+});
+
+/**
+ * Item Routes
+ */
+$routes->group("admin/items", ["namespace" => "\Modules\Restaurant\Controllers", "filter" => "auth"], function ($routes) {
+    $routes->get('/', 'ItemController::index', ['as' => 'admin.items']);
+    $routes->get('list', 'ItemController::list', ['as' => 'admin.items.list']);
+    $routes->match(['get', 'post'], 'create', 'ItemController::create', ['as' => 'admin.items.create']);
+    $routes->match(['get', 'post'], 'edit/(:num)', 'ItemController::edit/$1', ['as' => 'admin.items.edit']);
+    $routes->post('delete', 'ItemController::delete', ['as' => 'admin.items.delete']);
+});
