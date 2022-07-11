@@ -68,7 +68,7 @@
                             <div class="row">
                                 <div class="form-group col-md-6">
                                     <label for="item_name">Item Name</label>
-                                    <input type="text" name="item_name" class="form-control <?= ($validation->getError('item_name')) ? 'is-invalid' : ''; ?>" value="<?= set_value('item_name') ?>" id="item_name" placeholder="Enter Item Name">
+                                    <input type="text" name="item_name" class="form-control <?= ($validation->getError('item_name')) ? 'is-invalid' : ''; ?>" value="<?= set_value('item_name') ?>" id="item_name">
                                     <?php if ($validation->getError('item_name')) : ?>
                                         <span class="error invalid-feedback"><?= $validation->getError('item_name') ?></span>
                                     <?php endif; ?>
@@ -77,7 +77,7 @@
                             <div class="row">
                                 <div class="form-group col-md-6">
                                     <label for="item_price">Price</label>
-                                    <input type="text" name="item_price" class="form-control <?= ($validation->getError('item_price')) ? 'is-invalid' : ''; ?>" value="<?= set_value('item_price', 0) ?>" id="item_price" placeholder="Enter Item Price">
+                                    <input type="text" name="item_price" class="form-control <?= ($validation->getError('item_price')) ? 'is-invalid' : ''; ?>" value="<?= set_value('item_price', 0) ?>" id="item_price">
                                     <?php if ($validation->getError('item_price')) : ?>
                                         <span class="error invalid-feedback"><?= $validation->getError('item_price') ?></span>
                                     <?php endif; ?>
@@ -86,7 +86,7 @@
                             <div class="row">
                                 <div class="form-group col-md-6">
                                     <label for="item_description">Description</label>
-                                    <textarea name="item_description" id="item_description" class="form-control <?= ($validation->getError('item_description')) ? 'is-invalid' : ''; ?>" placeholder="Enter Item Description"><?= set_value('item_description') ?></textarea>
+                                    <textarea name="item_description" id="item_description" class="form-control <?= ($validation->getError('item_description')) ? 'is-invalid' : ''; ?>"><?= set_value('item_description') ?></textarea>
                                     <?php if ($validation->getError('item_description')) : ?>
                                         <span class="error invalid-feedback"><?= $validation->getError('item_description') ?></span>
                                     <?php endif; ?>

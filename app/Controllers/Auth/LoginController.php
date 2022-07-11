@@ -74,6 +74,6 @@ class LoginController extends BaseController
     {
         $session = session();
         $session->destroy();
-        return redirect()->route('login');
+        return redirect()->route('admin.login');
     }
 }

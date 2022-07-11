@@ -40,7 +40,7 @@
                             <div class="row">
                                 <div class="form-group col-md-6">
                                     <label for="store_name">Store Name</label>
-                                    <input type="text" name="store_name" class="form-control <?= ($validation->getError('store_name')) ? 'is-invalid' : ''; ?>" value="<?= set_value('store_name') ?>" id="store_name" placeholder="Enter Store Name">
+                                    <input type="text" name="store_name" class="form-control <?= ($validation->getError('store_name')) ? 'is-invalid' : ''; ?>" value="<?= set_value('store_name') ?>" id="store_name">
                                     <?php if ($validation->getError('store_name')) : ?>
                                         <span class="error invalid-feedback"><?= $validation->getError('store_name') ?></span>
                                     <?php endif; ?>

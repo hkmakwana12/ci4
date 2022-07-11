@@ -46,7 +46,7 @@
                             <div class="col-sm-4 mb-4 pull-right">
                                 <form action="">
                                     <div class="input-group">
-                                        <input type="search" name="search" class="form-control" placeholder="Search your keywords here" value="<?= $search ?>">
+                                        <input type="search" name="search" class="form-control" value="<?= $search ?>">
                                         <div class="input-group-append">
                                             <button type="submit" class="btn btn-default">
                                                 <i class="fa fa-search"></i>

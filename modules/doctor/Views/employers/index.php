@@ -1,7 +1,7 @@
 <?= $this->extend('layouts/main'); ?>
 
 <?= $this->section('content'); ?>
-<form role="form" id="deleteForm" action="<?= route_to('admin.items.delete', 0); ?>" method="post">
+<form role="form" id="deleteForm" action="<?= route_to('admin.employers.delete', 0); ?>" method="post">
     <?= csrf_field(); ?>
     <input type="hidden" name="delete_id" id="delete_id" />
 </form>
@@ -10,12 +10,12 @@
     <div class="container-fluid">
         <div class="row mb-2">
             <div class="col-sm-6">
-                <h1 class="m-0">Items</h1>
+                <h1 class="m-0">Employers</h1>
             </div><!-- /.col -->
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
                     <li class="breadcrumb-item"><a href="<?= route_to('admin.dash') ?>">Home</a></li>
-                    <li class="breadcrumb-item active">Items</li>
+                    <li class="breadcrumb-item active">Employers</li>
                 </ol>
             </div><!-- /.col -->
         </div><!-- /.row -->
@@ -30,9 +30,9 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-header">
-                        <h3 class="card-title">Items</h3>
+                        <h3 class="card-title">Employers</h3>
                         <div class="card-tool">
-                            <a class="btn btn-primary btn-sm float-right" href="<?= route_to('admin.items.create'); ?>"><span class="fas fa-plus">&nbsp;</span>Add</a>
+                            <a class="btn btn-primary btn-sm float-right" href="<?= route_to('admin.employers.create'); ?>"><span class="fas fa-plus">&nbsp;</span>Add</a>
                         </div>
                     </div>
                     <!-- /.card-header -->
@@ -68,30 +68,30 @@
                                                 </label>
                                             </div>
                                         </th>
-                                        <th>Store</th>
-                                        <th>Category</th>
-                                        <th>Item Name</th>
-                                        <th>Item Price</th>
+                                        <th>First Name</th>
+                                        <th>Last Name</th>
+                                        <th>Email Id</th>
+                                        <th>Phone Number</th>
                                         <th>Action</th>
                                     </tr>
                                     <?php
-                                    if ($items) : ?>
-                                        <?php foreach ($items as $item) : ?>
+                                    if ($employers) : ?>
+                                        <?php foreach ($employers as $employer) : ?>
                                             <tr>
                                                 <td class="text-center">
                                                     <div class="icheck-primary d-inline">
-                                                        <input type="checkbox" class="sub_checkbox" id="sub_checkbox<?= $item->id ?>" data-id="<?= $item->id ?>">
-                                                        <label for="sub_checkbox<?= $item->id ?>">
+                                                        <input type="checkbox" class="sub_checkbox" id="sub_checkbox<?= $employer->id ?>" data-id="<?= $employer->id ?>">
+                                                        <label for="sub_checkbox<?= $employer->id ?>">
                                                         </label>
                                                     </div>
                                                 </td>
-                                                <td><?= $item->store_name ?></td>
-                                                <td><?= $item->category_name ?></td>
-                                                <td><?= $item->item_name ?></td>
-                                                <td><?= $item->item_price ?></td>
+                                                <td><?= $employer->user_firstname ?></td>
+                                                <td><?= $employer->user_lastname ?></td>
+                                                <td><?= $employer->user_email ?></td>
+                                                <td><?= $employer->user_phone ?></td>
                                                 <td width="150px">
-                                                    <a href="<?= route_to('admin.items.edit', $item->id) ?>" class="btn btn-sm btn-primary">Edit</a>
-                                                    <button type="button" class="btn btn-sm btn-danger deleteItem" data-toggle="modal" data-target="#modal-delete" data-id="<?= $item->id ?>">Delete</button>
+                                                    <a href="<?= route_to('admin.employers.edit', $employer->id) ?>" class="btn btn-sm btn-primary">Edit</a>
+                                                    <button type="button" class="btn btn-sm btn-danger deleteItem" data-toggle="modal" data-target="#modal-delete" data-id="<?= $employer->id ?>">Delete</button>
                                                 </td>
                                             </tr>
                                         <?php endforeach;
@@ -108,7 +108,7 @@
                     <div class="card-footer clearfix">
                         <?php
                         if ($pagination_link) {
-                            $pagination_link->setPath('admin/items');
+                            $pagination_link->setPath('admin/employers');
                             echo $pagination_link->links();
                         }
                         ?>

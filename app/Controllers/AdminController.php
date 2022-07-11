@@ -35,7 +35,7 @@ class AdminController extends Controller
      *
      * @var array
      */
-    protected $helpers = [];
+    protected $helpers = ['auth_helper', 'my_helpers'];
 
     /**
      * Constructor.

@@ -40,7 +40,7 @@
                             <div class="row">
                                 <div class="form-group col-md-6">
                                     <label for="role_name">Name</label>
-                                    <input type="text" name="role_name" class="form-control <?= ($validation->getError('role_name')) ? 'is-invalid' : ''; ?>" value="<?= set_value('role_name') ?>" id="role_name" placeholder="Enter Name">
+                                    <input type="text" name="role_name" class="form-control <?= ($validation->getError('role_name')) ? 'is-invalid' : ''; ?>" value="<?= set_value('role_name') ?>" id="role_name">
                                     <?php if ($validation->getError('role_name')) : ?>
                                         <span class="error invalid-feedback"><?= $validation->getError('role_name') ?></span>
                                     <?php endif; ?>
@@ -49,7 +49,7 @@
                             <div class="row">
                                 <div class="form-group col-md-6">
                                     <label for="role_display_name">Display Name</label>
-                                    <input type="text" class="form-control <?= ($validation->getError('role_display_name')) ? 'is-invalid' : ''; ?>" name="role_display_name" value="<?= set_value('role_display_name') ?>" id="role_display_name" placeholder="Enter Display Name">
+                                    <input type="text" class="form-control <?= ($validation->getError('role_display_name')) ? 'is-invalid' : ''; ?>" name="role_display_name" value="<?= set_value('role_display_name') ?>" id="role_display_name">
                                     <?php if ($validation->getError('role_display_name')) : ?>
                                         <span class="error invalid-feedback"><?= $validation->getError('role_display_name') ?></span>
                                     <?php endif; ?>
@@ -58,7 +58,7 @@
                             <div class="row">
                                 <div class="form-group col-md-6">
                                     <label for="role_description">Description</label>
-                                    <textarea name="role_description" id="role_description" class="form-control <?= ($validation->getError('role_description')) ? 'is-invalid' : ''; ?>" placeholder="Enter Description"><?= set_value('role_description') ?></textarea>
+                                    <textarea name="role_description" id="role_description" class="form-control <?= ($validation->getError('role_description')) ? 'is-invalid' : ''; ?>"><?= set_value('role_description') ?></textarea>
                                     <?php if ($validation->getError('role_description')) : ?>
                                         <span class="error invalid-feedback"><?= $validation->getError('role_description') ?></span>
                                     <?php endif; ?>

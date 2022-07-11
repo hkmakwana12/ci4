@@ -54,7 +54,7 @@
                             <div class="row">
                                 <div class="form-group col-md-6">
                                     <label for="table_number">Table Number</label>
-                                    <input type="text" name="table_number" class="form-control <?= ($validation->getError('table_number')) ? 'is-invalid' : ''; ?>" value="<?= set_value('table_number') ?>" id="table_number" placeholder="Enter Table Number">
+                                    <input type="text" name="table_number" class="form-control <?= ($validation->getError('table_number')) ? 'is-invalid' : ''; ?>" value="<?= set_value('table_number') ?>" id="table_number">
                                     <?php if ($validation->getError('table_number')) : ?>
                                         <span class="error invalid-feedback"><?= $validation->getError('table_number') ?></span>
                                     <?php endif; ?>
@@ -63,7 +63,7 @@
                             <div class="row">
                                 <div class="form-group col-md-6">
                                     <label for="table_name">Table Name</label>
-                                    <input type="text" name="table_name" class="form-control <?= ($validation->getError('table_name')) ? 'is-invalid' : ''; ?>" value="<?= set_value('table_name') ?>" id="table_name" placeholder="Enter Table Name">
+                                    <input type="text" name="table_name" class="form-control <?= ($validation->getError('table_name')) ? 'is-invalid' : ''; ?>" value="<?= set_value('table_name') ?>" id="table_name">
                                     <?php if ($validation->getError('table_name')) : ?>
                                         <span class="error invalid-feedback"><?= $validation->getError('table_name') ?></span>
                                     <?php endif; ?>
@@ -72,7 +72,7 @@
                             <div class="row">
                                 <div class="form-group col-md-6">
                                     <label for="table_capacity">Capacity</label>
-                                    <input type="number" name="table_capacity" class="form-control <?= ($validation->getError('table_capacity')) ? 'is-invalid' : ''; ?>" value="<?= set_value('table_capacity', 0) ?>" id="table_capacity" placeholder="Enter Table Capacity" min="0">
+                                    <input type="number" name="table_capacity" class="form-control <?= ($validation->getError('table_capacity')) ? 'is-invalid' : ''; ?>" value="<?= set_value('table_capacity', 0) ?>" id="table_capacity" min="0">
                                     <?php if ($validation->getError('table_capacity')) : ?>
                                         <span class="error invalid-feedback"><?= $validation->getError('table_capacity') ?></span>
                                     <?php endif; ?>
@@ -81,7 +81,7 @@
                             <div class="row">
                                 <div class="form-group col-md-6">
                                     <label for="table_description">Description</label>
-                                    <textarea name="table_description" id="table_description" class="form-control <?= ($validation->getError('table_description')) ? 'is-invalid' : ''; ?>" placeholder="Enter Table Description"><?= set_value('table_description') ?></textarea>
+                                    <textarea name="table_description" id="table_description" class="form-control <?= ($validation->getError('table_description')) ? 'is-invalid' : ''; ?>"><?= set_value('table_description') ?></textarea>
                                     <?php if ($validation->getError('table_description')) : ?>
                                         <span class="error invalid-feedback"><?= $validation->getError('table_description') ?></span>
                                     <?php endif; ?>

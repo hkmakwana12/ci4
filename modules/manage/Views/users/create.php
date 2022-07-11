@@ -40,7 +40,7 @@
                             <div class="row">
                                 <div class="form-group col-md-6">
                                     <label for="user_firstname">First Name</label>
-                                    <input type="text" name="user_firstname" class="form-control <?= ($validation->getError('user_firstname')) ? 'is-invalid' : ''; ?>" value="<?= set_value('user_firstname'); ?>" id="name" placeholder="Enter First Name">
+                                    <input type="text" name="user_firstname" class="form-control <?= ($validation->getError('user_firstname')) ? 'is-invalid' : ''; ?>" value="<?= set_value('user_firstname'); ?>" id="user_firstname">
                                     <?php if ($validation->getError('user_firstname')) : ?>
                                         <span class="error invalid-feedback"><?= $validation->getError('user_firstname'); ?></span>
                                     <?php endif; ?>
@@ -49,7 +49,7 @@
                             <div class="row">
                                 <div class="form-group col-md-6">
                                     <label for="user_lastname">Last Name</label>
-                                    <input type="text" name="user_lastname" class="form-control <?= ($validation->getError('user_lastname')) ? 'is-invalid' : ''; ?>" value="<?= set_value('user_lastname'); ?>" id="name" placeholder="Enter Last Name">
+                                    <input type="text" name="user_lastname" class="form-control <?= ($validation->getError('user_lastname')) ? 'is-invalid' : ''; ?>" value="<?= set_value('user_lastname'); ?>" id="user_lastname">
                                     <?php if ($validation->getError('user_lastname')) : ?>
                                         <span class="error invalid-feedback"><?= $validation->getError('user_lastname'); ?></span>
                                     <?php endif; ?>
@@ -58,7 +58,7 @@
                             <div class="row">
                                 <div class="form-group col-md-6">
                                     <label for="user_email">Email address</label>
-                                    <input type="email" class="form-control <?= ($validation->getError('user_email')) ? 'is-invalid' : ''; ?>" name="user_email" value="<?= set_value('user_email'); ?>" id="user_email" placeholder="Enter Email address">
+                                    <input type="email" class="form-control <?= ($validation->getError('user_email')) ? 'is-invalid' : ''; ?>" name="user_email" value="<?= set_value('user_email'); ?>" id="user_email">
                                     <?php if ($validation->getError('user_email')) : ?>
                                         <span class="error invalid-feedback"><?= $validation->getError('user_email'); ?></span>
                                     <?php endif; ?>
@@ -67,7 +67,7 @@
                             <div class="row">
                                 <div class="form-group col-md-6">
                                     <label for="user_phone">Phone No.</label>
-                                    <input type="text" name="user_phone" class="form-control <?= ($validation->getError('user_phone')) ? 'is-invalid' : ''; ?>" value="<?= set_value('user_phone'); ?>" id="name" placeholder="Enter Phone No.">
+                                    <input type="text" name="user_phone" class="form-control <?= ($validation->getError('user_phone')) ? 'is-invalid' : ''; ?>" value="<?= set_value('user_phone'); ?>" id="user_phone">
                                     <?php if ($validation->getError('user_phone')) : ?>
                                         <span class="error invalid-feedback"><?= $validation->getError('user_phone'); ?></span>
                                     <?php endif; ?>
@@ -76,7 +76,7 @@
                             <div class="row">
                                 <div class="form-group col-md-6">
                                     <label for="password">Password</label>
-                                    <input type="password" autocomplete="password" class="form-control <?= ($validation->getError('password')) ? 'is-invalid' : ''; ?>" name="password" id="password" placeholder=" Enter Password">
+                                    <input type="password" autocomplete="password" class="form-control <?= ($validation->getError('password')) ? 'is-invalid' : ''; ?>" name="password" id="password">
                                     <?php if ($validation->getError('password')) : ?>
                                         <span class="error invalid-feedback"><?= $validation->getError('password'); ?></span>
                                     <?php endif; ?>
@@ -85,7 +85,7 @@
                             <div class="row">
                                 <div class="form-group col-md-6">
                                     <label for="confirm_password">Confirm Password</label>
-                                    <input type="password" autocomplete="confirm_password" class="form-control" name="confirm_password" id="confirm_password" placeholder=" Confirm Password">
+                                    <input type="password" autocomplete="confirm_password" class="form-control" name="confirm_password" id="confirm_password">
                                 </div>
                             </div>
                             <div class="row">

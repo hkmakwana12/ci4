@@ -54,7 +54,7 @@
                             <div class="row">
                                 <div class="form-group col-md-6">
                                     <label for="category_name">Category Name</label>
-                                    <input type="text" name="category_name" class="form-control <?= ($validation->getError('category_name')) ? 'is-invalid' : ''; ?>" value="<?= set_value('category_name') ?>" id="category_name" placeholder="Enter Category Name">
+                                    <input type="text" name="category_name" class="form-control <?= ($validation->getError('category_name')) ? 'is-invalid' : ''; ?>" value="<?= set_value('category_name') ?>" id="category_name">
                                     <?php if ($validation->getError('category_name')) : ?>
                                         <span class="error invalid-feedback"><?= $validation->getError('category_name') ?></span>
                                     <?php endif; ?>

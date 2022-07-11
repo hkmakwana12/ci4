@@ -20,6 +20,24 @@
                     </a>
                 </li>
                 <li class="nav-item">
+                    <a href="<?= route_to('admin.employers') ?>" class="nav-link">
+                        <i class="nav-icon fas fa-users"></i>
+                        <p>Employers</p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="<?= route_to('admin.doctors') ?>" class="nav-link">
+                        <i class="nav-icon fas fa-user-md"></i>
+                        <p>Doctors</p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="<?= route_to('admin.labadmins') ?>" class="nav-link">
+                        <i class="nav-icon fas fa-flask"></i>
+                        <p>LabAdmins</p>
+                    </a>
+                </li>
+                <!-- <li class="nav-item">
                     <a href="<?= route_to('admin.stores') ?>" class="nav-link">
                         <i class="nav-icon fas fa-map-marker"></i>
                         <p>Stores</p>
@@ -41,6 +59,12 @@
                     <a href="<?= route_to('admin.items') ?>" class="nav-link">
                         <i class="nav-icon fas fa-table"></i>
                         <p>Items</p>
+                    </a>
+                </li> -->
+                <li class="nav-item">
+                    <a href="<?= route_to('admin.employees') ?>" class="nav-link">
+                        <i class="nav-icon fas fa-user-tie"></i>
+                        <p>Employees</p>
                     </a>
                 </li>
                 <li class="nav-item">

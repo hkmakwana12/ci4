@@ -156,7 +156,7 @@ class User extends Model
         $db = db_connect();
         // $db->table('user_meta')->where('user_id', $user_id)->delete();
         $remove = [
-            'ci_csrf_token', 'id', 'user_firstname', 'user_lastname', 'user_profile', 'user_email', 'user_phone', 'password', 'confirm_password',
+            'csrf_token_name', 'id', 'user_firstname', 'user_lastname', 'user_profile', 'user_email', 'user_phone', 'password', 'confirm_password',
             'old_user_profile', 'email_verification_code', 'is_email_verify', 'is_active', 'profile_picture', 'last_login', 'last_logout', 'last_accessed_ip', 'logins'
         ];
 
