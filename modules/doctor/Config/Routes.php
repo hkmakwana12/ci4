@@ -51,6 +51,7 @@ $routes->group("admin/labadmins", ["namespace" => "\Modules\doctor\Controllers",
 $routes->group("admin/employees", ["namespace" => "\Modules\doctor\Controllers", "filter" => "auth"], function ($routes) {
     $routes->get('/', 'EmployeeController::index', ['as' => 'admin.employees']);
     $routes->get('list', 'EmployeeController::list', ['as' => 'admin.employees.list']);
+    $routes->match(['get', 'post'], 'import', 'EmployeeController::import', ['as' => 'admin.employees.import']);
     $routes->match(['get', 'post'], 'create', 'EmployeeController::create', ['as' => 'admin.employees.create']);
     $routes->match(['get', 'post'], 'edit/(:num)', 'EmployeeController::edit/$1', ['as' => 'admin.employees.edit']);
     $routes->post('delete', 'EmployeeController::delete', ['as' => 'admin.employees.delete']);

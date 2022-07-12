@@ -33,6 +33,7 @@
                         <h3 class="card-title">Employees</h3>
                         <div class="card-tool">
                             <a class="btn btn-primary btn-sm float-right" href="<?= route_to('admin.employees.create'); ?>"><span class="fas fa-plus">&nbsp;</span>Add</a>
+                            <a class="btn btn-outline-primary btn-sm float-right mr-2" href="<?= route_to('admin.employees.import'); ?>"><span class="fas fa-upload">&nbsp;</span>Import</a>
                         </div>
                     </div>
                     <!-- /.card-header -->

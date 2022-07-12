@@ -5,6 +5,8 @@ namespace Modules\Doctor\Controllers;
 use App\Controllers\AdminController;
 use Modules\Doctor\Models\Employee;
 
+use Shuchkin\SimpleXLSX;
+
 class EmployeeController extends AdminController
 {
     private $viewPath = 'Modules\Doctor\Views\Employees';
@@ -37,6 +39,76 @@ class EmployeeController extends AdminController
         return view($this->viewPath . '\index', $data);
     }
 
+    /*
+    * Import  Employees Action
+    */
+    public function import()
+    {
+
+        $data = [
+            'heading' => 'Import Employees',
+        ];
+        helper(['form']);
+
+        $data['validation'] = \Config\Services::validation();
+
+        $employeeModel = new Employee();
+        if ($this->request->getMethod() == 'post') {
+            $input = $this->request->getVar(null, FILTER_SANITIZE_STRING);
+            if (isset($input['action']) && $input['action'] == 'import_data') {
+                if (!isset($input['employee_full_name'])) {
+                    $session = session();
+                    $session->setFlashdata('info', 'No data found');
+                    return redirect()->route('admin.employees');
+                }
+                for ($i = 0; $i < count($input['employee_full_name']); $i++) {
+                    $employee['employee_full_name'] = $input['employee_full_name'][$i];
+                    $employee['employee_address'] = $input['employee_address'][$i];
+                    $employee['employee_aadhar_number'] = $input['employee_aadhar_number'][$i];
+                    $employee['employee_email'] = $input['employee_email'][$i];
+                    $employee['employee_phone'] = $input['employee_phone'][$i];
+                    $employee['employee_sex'] = $input['employee_sex'][$i];
+                    $employee['employee_marital_status'] = $input['employee_marital_status'][$i];
+                    $employee['employee_date_of_birth'] = $input['employee_date_of_birth'][$i];
+                    $employee['employee_religion'] = $input['employee_religion'][$i];
+                    $employee['employee_education'] = $input['employee_education'][$i];
+                    $employee['employee_occupation'] = $input['employee_occupation'][$i];
+
+                    $employee['created_by'] = session()->get('id');
+
+                    $employeeModel->save($employee);
+                }
+                $session = session();
+                $session->setFlashdata('success', 'Employee saved successfully');
+                return redirect()->route('admin.employees');
+            }
+            if ($file = $this->request->getFile('file')) {
+                if ($file->isValid() && !$file->hasMoved()) {
+                    $newName = $file->getRandomName();
+                    $file->move('../public/excel', $newName);
+                    $fileName = "../public/excel/" . $newName;
+
+                    if ($xlsx = SimpleXLSX::parse($fileName)) {
+                        $employees = [];
+                        foreach ($xlsx->rows() as $k => $r) {
+                            if ($k === 0) {
+                                continue;
+                            }
+                            $employees[] = $r;
+                        }
+                        $data['employees'] = $employees;
+                    } else {
+                        $session = session();
+                        $session->setFlashdata('error', 'There is a problem with your Excel');
+                        return redirect()->route('admin.employees');
+                    }
+                    unlink($fileName);
+                }
+            }
+        }
+
+        return view($this->viewPath . '\import', $data);
+    }
     /*
     * Create New  Employees Action
     */
