@@ -1,15 +1,15 @@
 <?php
 
-namespace Modules\Doctor\Controllers;
+namespace Modules\Medical\Controllers;
 
 use App\Controllers\AdminController;
-use Modules\Doctor\Models\Employee;
+use Modules\Medical\Models\Employee;
 
 use Shuchkin\SimpleXLSX;
 
 class EmployeeController extends AdminController
 {
-    private $viewPath = 'Modules\Doctor\Views\Employees';
+    private $viewPath = 'Modules\Medical\Views\Employees';
     /*
      * Display Employees Details Action
      */
@@ -158,20 +158,20 @@ class EmployeeController extends AdminController
         helper(['form']);
         $employee = new Employee();
         if ($this->request->getMethod() == 'post') {
-            $rules = [];
+            // $rules = [];
 
-            if (!$this->validate($rules)) {
-                $data['validation'] = $this->validator;
-            } else {
-                $input = $this->request->getVar(null, FILTER_SANITIZE_STRING);
-                $input['id'] = $id;
+            // if (!$this->validate($rules)) {
+            //     $data['validation'] = $this->validator;
+            // } else {
+            $input = $this->request->getVar(null, FILTER_SANITIZE_STRING);
+            $input['id'] = $id;
 
-                $employee->save($input);
-                $session = session();
-                $session->setFlashdata('success', 'Successfully updated the employee');
+            $employee->save($input);
+            $session = session();
+            $session->setFlashdata('success', 'Successfully updated the employee');
 
-                return redirect()->route('admin.employees');
-            }
+            return redirect()->route('admin.employees');
+            // }
         }
 
         $data['employee'] = $employee->where('id', $id)->first();

@@ -32,4 +32,7 @@ $routes->group("admin/users", ["namespace" => "\Modules\Manage\Controllers", "fi
     $routes->match(['get', 'post'], 'create', 'UserController::create', ['as' => 'admin.users.create']);
     $routes->match(['get', 'post'], 'edit/(:num)', 'UserController::edit/$1', ['as' => 'admin.users.edit']);
     $routes->post('delete', 'UserController::delete', ['as' => 'admin.users.delete']);
+
+
+    $routes->get('impersonate/(:num)', 'UserController::impersonate/$1', ['as' => 'admin.users.impersonate']);
 });

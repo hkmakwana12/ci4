@@ -1,21 +1,9 @@
 <?php
 
 /**
- * Screening Routes
- */
-$routes->group("admin/screenings", ["namespace" => "\Modules\doctor\Controllers", "filter" => "auth"], function ($routes) {
-    $routes->get('/', 'ScreeningController::index', ['as' => 'admin.screenings']);
-    $routes->get('list', 'ScreeningController::list', ['as' => 'admin.screenings.list']);
-    $routes->match(['get', 'post'], 'create', 'ScreeningController::create', ['as' => 'admin.screenings.create']);
-    $routes->match(['get', 'post'], 'edit/(:num)', 'ScreeningController::edit/$1', ['as' => 'admin.screenings.edit']);
-    $routes->post('delete', 'ScreeningController::delete', ['as' => 'admin.screenings.delete']);
-});
-
-
-/**
  * Employer Routes
  */
-$routes->group("admin/employers", ["namespace" => "\Modules\doctor\Controllers", "filter" => "auth"], function ($routes) {
+$routes->group("admin/employers", ["namespace" => "\Modules\medical\Controllers", "filter" => "auth"], function ($routes) {
     $routes->get('/', 'EmployerController::index', ['as' => 'admin.employers']);
     $routes->get('list', 'EmployerController::list', ['as' => 'admin.employers.list']);
     $routes->match(['get', 'post'], 'create', 'EmployerController::create', ['as' => 'admin.employers.create']);
@@ -26,7 +14,7 @@ $routes->group("admin/employers", ["namespace" => "\Modules\doctor\Controllers",
 /**
  * Doctor Routes
  */
-$routes->group("admin/doctors", ["namespace" => "\Modules\doctor\Controllers", "filter" => "auth"], function ($routes) {
+$routes->group("admin/doctors", ["namespace" => "\Modules\medical\Controllers", "filter" => "auth"], function ($routes) {
     $routes->get('/', 'DoctorController::index', ['as' => 'admin.doctors']);
     $routes->get('list', 'DoctorController::list', ['as' => 'admin.doctors.list']);
     $routes->match(['get', 'post'], 'create', 'DoctorController::create', ['as' => 'admin.doctors.create']);
@@ -37,7 +25,7 @@ $routes->group("admin/doctors", ["namespace" => "\Modules\doctor\Controllers", "
 /**
  * LabAdmin Routes
  */
-$routes->group("admin/labadmins", ["namespace" => "\Modules\doctor\Controllers", "filter" => "auth"], function ($routes) {
+$routes->group("admin/labadmins", ["namespace" => "\Modules\medical\Controllers", "filter" => "auth"], function ($routes) {
     $routes->get('/', 'LabAdminController::index', ['as' => 'admin.labadmins']);
     $routes->get('list', 'LabAdminController::list', ['as' => 'admin.labadmins.list']);
     $routes->match(['get', 'post'], 'create', 'LabAdminController::create', ['as' => 'admin.labadmins.create']);
@@ -48,7 +36,7 @@ $routes->group("admin/labadmins", ["namespace" => "\Modules\doctor\Controllers",
 /**
  * Employee Routes
  */
-$routes->group("admin/employees", ["namespace" => "\Modules\doctor\Controllers", "filter" => "auth"], function ($routes) {
+$routes->group("admin/employees", ["namespace" => "\Modules\medical\Controllers", "filter" => "auth"], function ($routes) {
     $routes->get('/', 'EmployeeController::index', ['as' => 'admin.employees']);
     $routes->get('list', 'EmployeeController::list', ['as' => 'admin.employees.list']);
     $routes->match(['get', 'post'], 'import', 'EmployeeController::import', ['as' => 'admin.employees.import']);

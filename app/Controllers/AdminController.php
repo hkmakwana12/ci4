@@ -2,6 +2,7 @@
 
 namespace App\Controllers;
 
+use App\Libraries\Acl;
 use CodeIgniter\Controller;
 use CodeIgniter\HTTP\CLIRequest;
 use CodeIgniter\HTTP\IncomingRequest;
@@ -44,7 +45,9 @@ class AdminController extends Controller
     {
         // Do Not Edit This Line
         parent::initController($request, $response, $logger);
+        $userPermissions = (new Acl())->userPermissions();
 
+        $data['userPermissions'] = $userPermissions;
 
         $this->data['test_name'] = "Test";
     }

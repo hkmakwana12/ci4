@@ -102,7 +102,7 @@ class RoleController extends AdminController
         helper(['form']);
         $role = new Role();
         $data['role_permissions'] = $role->roleWisePermissions($id);
-        
+
         if ($this->request->getMethod() == 'post') {
             $rules = [
                 'role_name' => [

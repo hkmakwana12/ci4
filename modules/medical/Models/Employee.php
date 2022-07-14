@@ -1,12 +1,12 @@
 <?php
 
-namespace Modules\Doctor\Models;
+namespace Modules\Medical\Models;
 
 use CodeIgniter\Model;
 
 class Employee extends Model
 {
-    protected $table = 'employees';
+    protected $table = 'medical_employees';
     protected $returnType = 'object';
     protected $useSoftDeletes = false;
 

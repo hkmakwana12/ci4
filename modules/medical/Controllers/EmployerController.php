@@ -1,38 +1,38 @@
 <?php
 
-namespace Modules\Doctor\Controllers;
+namespace Modules\Medical\Controllers;
 
 use App\Controllers\AdminController;
 use Modules\Manage\Models\User;
 
-class DoctorController extends AdminController
+class EmployerController extends AdminController
 {
-    private $viewPath = 'Modules\Doctor\Views\Doctors';
+    private $viewPath = 'Modules\Medical\Views\Employers';
     /*
-     * Display Doctors Details Action
+     * Display Employers Details Action
      */
     public function index()
     {
-        $doctor = new User();
+        $employer = new User();
 
         $search = $this->request->getVar('search') ?? "";
         $sort = $this->request->getVar('sort');
         $field = $this->request->getVar('field');
 
-        $doctor->orderBy($field ?? 'id', $sort ?? 'DESC');
-        $doctor->groupStart();
-        $doctor->orLike('user_firstname', $search);
-        $doctor->orLike('user_lastname', $search);
-        $doctor->orLike('user_email', $search);
-        $doctor->orLike('user_phone', $search);
-        $doctor->groupEnd();
+        $employer->orderBy($field ?? 'id', $sort ?? 'DESC');
+        $employer->groupStart();
+        $employer->orLike('user_firstname', $search);
+        $employer->orLike('user_lastname', $search);
+        $employer->orLike('user_email', $search);
+        $employer->orLike('user_phone', $search);
+        $employer->groupEnd();
 
-        $doctor->join('roles_users', 'roles_users.user_id=users.id', 'left');
-        $doctor->where('role_id', 6);
+        $employer->join('roles_users', 'roles_users.user_id=users.id', 'left');
+        $employer->where('role_id', 5);
 
-        $data['doctors'] = $doctor->paginate();
+        $data['employers'] = $employer->paginate();
 
-        $data['pagination_link'] = $doctor->pager;
+        $data['pagination_link'] = $employer->pager;
         $data['search'] = $search;
         $data['sort'] = $sort;
         $data['field'] = $field;
@@ -41,13 +41,13 @@ class DoctorController extends AdminController
     }
 
     /*
-    * Create New  Doctors Action
+    * Create New  Employers Action
     */
     public function create()
     {
 
         $data = [
-            'heading' => 'Create New Doctors',
+            'heading' => 'Create New Employers',
         ];
         helper(['form']);
 
@@ -96,16 +96,16 @@ class DoctorController extends AdminController
                 $data['validation'] = $this->validator;
             } else {
                 $input = $this->request->getVar(null, FILTER_SANITIZE_STRING);
-                $doctor = new User();
+                $employer = new User();
 
-                $doctor->save($input);
-                $doctor->addRoles($doctor->getInsertID(), [6]);
-                $doctor->saveMeta($input, $doctor->getInsertID());
+                $employer->save($input);
+                $employer->addRoles($employer->getInsertID(), [5]);
+                $employer->saveMeta($input, $employer->getInsertID());
 
                 $session = session();
-                $session->setFlashdata('success', 'Successfully created new doctor');
+                $session->setFlashdata('success', 'Successfully created new employer');
 
-                return redirect()->route('admin.doctors');
+                return redirect()->route('admin.employers');
             }
         }
 
@@ -113,18 +113,18 @@ class DoctorController extends AdminController
     }
 
     /*
-    * Update  Doctor information Action
+    * Update  Employer information Action
     */
     public function edit($id = null)
     {
 
         $data = [
-            'heading' => 'Update Doctor',
+            'heading' => 'Update Employer',
         ];
 
         $data['validation'] = \Config\Services::validation();
         helper(['form']);
-        $doctor = new User();
+        $employer = new User();
         if ($this->request->getMethod() == 'post') {
             $rules = [
                 'user_firstname' => [
@@ -169,42 +169,42 @@ class DoctorController extends AdminController
                 $input = $this->request->getVar(null, FILTER_SANITIZE_STRING);
                 $input['id'] = $id;
 
-                $doctor->save($input);
-                $doctor->saveMeta($input, $id);
+                $employer->save($input);
+                $employer->saveMeta($input, $id);
                 $session = session();
-                $session->setFlashdata('success', 'Successfully updated the doctor');
+                $session->setFlashdata('success', 'Successfully updated the employer');
 
-                return redirect()->route('admin.doctors');
+                return redirect()->route('admin.employers');
             }
         }
 
-        $data['doctor'] = $doctor->where('id', $id)->first();
-        $doctors = $doctor->where('id', $id)->first();
-        $userMeta = $doctor->getMeta($id);
-        $doctors = (object) array_merge(
-            (array) $doctors,
+        $data['employer'] = $employer->where('id', $id)->first();
+        $employers = $employer->where('id', $id)->first();
+        $userMeta = $employer->getMeta($id);
+        $employers = (object) array_merge(
+            (array) $employers,
             (array) $userMeta
         );
 
-        $data['doctor'] = $doctors;
+        $data['employer'] = $employers;
 
         return view($this->viewPath . '\edit', $data);
     }
 
     /*
-    * delete Doctor
+    * delete Employer
     */
     public function delete()
     {
         $input = $this->request->getVar(null, FILTER_SANITIZE_STRING);
 
-        $doctor = new User();
-        $doctor->whereIn('id', explode(",", $input['delete_id']));
-        $doctor->delete();
+        $employer = new User();
+        $employer->whereIn('id', explode(",", $input['delete_id']));
+        $employer->delete();
 
         $session = session();
-        $session->setFlashdata('success', 'Successfully deleted the doctor');
+        $session->setFlashdata('success', 'Successfully deleted the employer');
 
-        return redirect()->route('admin.doctors');
+        return redirect()->route('admin.employers');
     }
 }

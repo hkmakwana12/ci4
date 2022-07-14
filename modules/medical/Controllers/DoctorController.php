@@ -1,38 +1,38 @@
 <?php
 
-namespace Modules\Doctor\Controllers;
+namespace Modules\Medical\Controllers;
 
 use App\Controllers\AdminController;
 use Modules\Manage\Models\User;
 
-class EmployerController extends AdminController
+class DoctorController extends AdminController
 {
-    private $viewPath = 'Modules\Doctor\Views\Employers';
+    private $viewPath = 'Modules\Medical\Views\Doctors';
     /*
-     * Display Employers Details Action
+     * Display Doctors Details Action
      */
     public function index()
     {
-        $employer = new User();
+        $doctor = new User();
 
         $search = $this->request->getVar('search') ?? "";
         $sort = $this->request->getVar('sort');
         $field = $this->request->getVar('field');
 
-        $employer->orderBy($field ?? 'id', $sort ?? 'DESC');
-        $employer->groupStart();
-        $employer->orLike('user_firstname', $search);
-        $employer->orLike('user_lastname', $search);
-        $employer->orLike('user_email', $search);
-        $employer->orLike('user_phone', $search);
-        $employer->groupEnd();
+        $doctor->orderBy($field ?? 'id', $sort ?? 'DESC');
+        $doctor->groupStart();
+        $doctor->orLike('user_firstname', $search);
+        $doctor->orLike('user_lastname', $search);
+        $doctor->orLike('user_email', $search);
+        $doctor->orLike('user_phone', $search);
+        $doctor->groupEnd();
 
-        $employer->join('roles_users', 'roles_users.user_id=users.id', 'left');
-        $employer->where('role_id', 5);
+        $doctor->join('roles_users', 'roles_users.user_id=users.id', 'left');
+        $doctor->where('role_id', 6);
 
-        $data['employers'] = $employer->paginate();
+        $data['doctors'] = $doctor->paginate();
 
-        $data['pagination_link'] = $employer->pager;
+        $data['pagination_link'] = $doctor->pager;
         $data['search'] = $search;
         $data['sort'] = $sort;
         $data['field'] = $field;
@@ -41,13 +41,13 @@ class EmployerController extends AdminController
     }
 
     /*
-    * Create New  Employers Action
+    * Create New  Doctors Action
     */
     public function create()
     {
 
         $data = [
-            'heading' => 'Create New Employers',
+            'heading' => 'Create New Doctors',
         ];
         helper(['form']);
 
@@ -96,16 +96,16 @@ class EmployerController extends AdminController
                 $data['validation'] = $this->validator;
             } else {
                 $input = $this->request->getVar(null, FILTER_SANITIZE_STRING);
-                $employer = new User();
+                $doctor = new User();
 
-                $employer->save($input);
-                $employer->addRoles($employer->getInsertID(), [5]);
-                $employer->saveMeta($input, $employer->getInsertID());
+                $doctor->save($input);
+                $doctor->addRoles($doctor->getInsertID(), [6]);
+                $doctor->saveMeta($input, $doctor->getInsertID());
 
                 $session = session();
-                $session->setFlashdata('success', 'Successfully created new employer');
+                $session->setFlashdata('success', 'Successfully created new doctor');
 
-                return redirect()->route('admin.employers');
+                return redirect()->route('admin.doctors');
             }
         }
 
@@ -113,18 +113,18 @@ class EmployerController extends AdminController
     }
 
     /*
-    * Update  Employer information Action
+    * Update  Doctor information Action
     */
     public function edit($id = null)
     {
 
         $data = [
-            'heading' => 'Update Employer',
+            'heading' => 'Update Doctor',
         ];
 
         $data['validation'] = \Config\Services::validation();
         helper(['form']);
-        $employer = new User();
+        $doctor = new User();
         if ($this->request->getMethod() == 'post') {
             $rules = [
                 'user_firstname' => [
@@ -169,42 +169,42 @@ class EmployerController extends AdminController
                 $input = $this->request->getVar(null, FILTER_SANITIZE_STRING);
                 $input['id'] = $id;
 
-                $employer->save($input);
-                $employer->saveMeta($input, $id);
+                $doctor->save($input);
+                $doctor->saveMeta($input, $id);
                 $session = session();
-                $session->setFlashdata('success', 'Successfully updated the employer');
+                $session->setFlashdata('success', 'Successfully updated the doctor');
 
-                return redirect()->route('admin.employers');
+                return redirect()->route('admin.doctors');
             }
         }
 
-        $data['employer'] = $employer->where('id', $id)->first();
-        $employers = $employer->where('id', $id)->first();
-        $userMeta = $employer->getMeta($id);
-        $employers = (object) array_merge(
-            (array) $employers,
+        $data['doctor'] = $doctor->where('id', $id)->first();
+        $doctors = $doctor->where('id', $id)->first();
+        $userMeta = $doctor->getMeta($id);
+        $doctors = (object) array_merge(
+            (array) $doctors,
             (array) $userMeta
         );
 
-        $data['employer'] = $employers;
+        $data['doctor'] = $doctors;
 
         return view($this->viewPath . '\edit', $data);
     }
 
     /*
-    * delete Employer
+    * delete Doctor
     */
     public function delete()
     {
         $input = $this->request->getVar(null, FILTER_SANITIZE_STRING);
 
-        $employer = new User();
-        $employer->whereIn('id', explode(",", $input['delete_id']));
-        $employer->delete();
+        $doctor = new User();
+        $doctor->whereIn('id', explode(",", $input['delete_id']));
+        $doctor->delete();
 
         $session = session();
-        $session->setFlashdata('success', 'Successfully deleted the employer');
+        $session->setFlashdata('success', 'Successfully deleted the doctor');
 
-        return redirect()->route('admin.employers');
+        return redirect()->route('admin.doctors');
     }
 }

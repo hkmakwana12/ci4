@@ -1,13 +1,13 @@
 <?php
 
-namespace Modules\Doctor\Controllers;
+namespace Modules\Medical\Controllers;
 
 use App\Controllers\AdminController;
 use Modules\Manage\Models\User;
 
 class LabAdminController extends AdminController
 {
-    private $viewPath = 'Modules\Doctor\Views\LabAdmins';
+    private $viewPath = 'Modules\Medical\Views\LabAdmins';
     /*
      * Display LabAdmins Details Action
      */
