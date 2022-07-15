@@ -179,6 +179,8 @@ class LabAdminController extends AdminController
         }
 
         $data['labadmin'] = $labadmin->where('id', $id)->first();
+        if (!$data['labadmin']) throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound('No record found');
+
         $labadmins = $labadmin->where('id', $id)->first();
         $userMeta = $labadmin->getMeta($id);
         $labadmins = (object) array_merge(

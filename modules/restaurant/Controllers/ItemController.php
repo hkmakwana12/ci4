@@ -161,6 +161,8 @@ class ItemController extends AdminController
         }
 
         $data['item'] = $item->where('id', $id)->first();
+        if (!$data['item']) throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound('No record found');
+
         return view($this->viewPath . '\edit', $data);
     }
 

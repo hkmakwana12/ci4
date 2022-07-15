@@ -139,6 +139,7 @@ class RoleController extends AdminController
         }
 
         $data['role'] = $role->where('id', $id)->first();
+        if (!$data['role']) throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound('No record found');
         return view($this->viewPath . '\edit', $data);
     }
 

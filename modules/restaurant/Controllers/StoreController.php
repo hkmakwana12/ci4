@@ -112,6 +112,8 @@ class StoreController extends AdminController
         }
 
         $data['store'] = $store->where('id', $id)->first();
+        if (!$data['store']) throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound('No record found');
+
         return view($this->viewPath . '\edit', $data);
     }
 

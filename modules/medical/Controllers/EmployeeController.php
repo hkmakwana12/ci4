@@ -175,8 +175,31 @@ class EmployeeController extends AdminController
         }
 
         $data['employee'] = $employee->where('id', $id)->first();
+        if (!$data['employee']) throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound('No record found');
 
         return view($this->viewPath . '\edit', $data);
+    }
+
+
+    /*
+    * Update  Employee information Action
+    */
+    public function view($id)
+    {
+        $data = [
+            'heading' => 'View Employee',
+            'viewPath' => $this->viewPath
+        ];
+        helper(['form']);
+
+        $employee = new Employee();
+        $data['employee'] = $employee->where('id', $id)->first();
+        if (!$data['employee']) throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound('No record found');
+
+        $group = $this->request->getVar('group') ?? "profile";
+
+        $data['group'] = $group;
+        return view($this->viewPath . '\view', $data);
     }
 
     /*

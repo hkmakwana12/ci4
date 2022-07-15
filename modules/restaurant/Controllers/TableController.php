@@ -145,6 +145,7 @@ class TableController extends AdminController
         }
 
         $data['table'] = $table->where('id', $id)->first();
+        if (!$data['table']) throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound('No record found');
         return view($this->viewPath . '\edit', $data);
     }
 

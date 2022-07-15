@@ -129,6 +129,7 @@ class PermissionController extends AdminController
         }
 
         $data['permission'] = $permission->where('id', $id)->first();
+        if (!$data['permission']) throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound('No record found');
         return view($this->viewPath . '\edit', $data);
     }
 

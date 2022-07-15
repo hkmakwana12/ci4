@@ -17,7 +17,11 @@
     <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
     <!-- Theme style -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/admin-lte@3.2/dist/css/adminlte.min.css">
-
+    <style>
+        .card-title {
+            font-size: 1.4rem;
+        }
+    </style>
 </head>
 <!--
 `body` tag options:
@@ -37,7 +41,7 @@
 
 
         <!-- Content Wrapper. Contains page content -->
-        <div class="content-wrapper">
+        <div class="content-wrapper pt-3">
             <?= $this->renderSection('content'); ?>
         </div>
         <!-- /.content-wrapper -->

@@ -179,6 +179,7 @@ class DoctorController extends AdminController
         }
 
         $data['doctor'] = $doctor->where('id', $id)->first();
+        if (!$data['doctor']) throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound('No record found');
         $doctors = $doctor->where('id', $id)->first();
         $userMeta = $doctor->getMeta($id);
         $doctors = (object) array_merge(

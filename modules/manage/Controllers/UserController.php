@@ -171,7 +171,7 @@ class UserController extends AdminController
                 'roles' => [
                     'rules' => 'required',
                     'errors' => [
-                        'required' => 'Select atleast one role',
+                        'required' => 'Select at least one role',
                     ],
                 ],
             ];
@@ -194,6 +194,7 @@ class UserController extends AdminController
         }
 
         $data['user'] = $user->where('id', $id)->first();
+        if (!$data['user']) throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound('No record found');
         return view($this->viewPath . '\edit', $data);
     }
 
@@ -220,5 +221,8 @@ class UserController extends AdminController
             $session->setFlashdata('success', 'Successfully deleted the user');
             return redirect()->route('admin.users');
         }
+    }
+    public function impersonate($id = null)
+    {
     }
 }

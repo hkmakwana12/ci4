@@ -179,6 +179,8 @@ class EmployerController extends AdminController
         }
 
         $data['employer'] = $employer->where('id', $id)->first();
+        if (!$data['employer']) throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound('No record found');
+
         $employers = $employer->where('id', $id)->first();
         $userMeta = $employer->getMeta($id);
         $employers = (object) array_merge(

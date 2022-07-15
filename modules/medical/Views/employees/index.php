@@ -5,23 +5,7 @@
     <?= csrf_field(); ?>
     <input type="hidden" name="delete_id" id="delete_id" />
 </form>
-<!-- Content Header (Page header) -->
-<div class="content-header">
-    <div class="container-fluid">
-        <div class="row mb-2">
-            <div class="col-sm-6">
-                <h1 class="m-0">Employees</h1>
-            </div><!-- /.col -->
-            <div class="col-sm-6">
-                <ol class="breadcrumb float-sm-right">
-                    <li class="breadcrumb-item"><a href="<?= route_to('admin.dash') ?>">Home</a></li>
-                    <li class="breadcrumb-item active">Employees</li>
-                </ol>
-            </div><!-- /.col -->
-        </div><!-- /.row -->
-    </div><!-- /.container-fluid -->
-</div>
-<!-- /.content-header -->
+
 <!-- Main content -->
 <section class="content">
     <div class="container-fluid">
@@ -86,7 +70,7 @@
                                                         </label>
                                                     </div>
                                                 </td>
-                                                <td><?= $employee->employee_full_name ?></td>
+                                                <td><a href="<?= route_to('admin.employees.view', $employee->id) ?>"><?= $employee->employee_full_name ?></a></td>
                                                 <td><?= $employee->employee_email ?></td>
                                                 <td><?= $employee->employee_phone ?></td>
                                                 <td><?= $employee->employee_aadhar_number ?></td>

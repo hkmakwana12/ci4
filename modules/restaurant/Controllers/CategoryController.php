@@ -130,6 +130,8 @@ class CategoryController extends AdminController
         }
 
         $data['category'] = $category->where('id', $id)->first();
+        if (!$data['category']) throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound('No record found');
+
         return view($this->viewPath . '\edit', $data);
     }
 
