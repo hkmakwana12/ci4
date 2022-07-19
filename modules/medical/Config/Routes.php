@@ -44,4 +44,6 @@ $routes->group("admin/employees", ["namespace" => "\Modules\medical\Controllers"
     $routes->match(['get', 'post'], '(:num)/edit', 'EmployeeController::edit/$1', ['as' => 'admin.employees.edit']);
     $routes->get('(:num)', 'EmployeeController::view/$1', ['as' => 'admin.employees.view']);
     $routes->post('delete', 'EmployeeController::delete', ['as' => 'admin.employees.delete']);
+
+    $routes->post('savePersonalHistory/(:num)', 'EmployeeController::savePersonalHistory/$1', ['as' => 'admin.employees.savePersonalHistory']);
 });

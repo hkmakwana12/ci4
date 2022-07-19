@@ -4,7 +4,7 @@ namespace Modules\Medical\Controllers;
 
 use App\Controllers\AdminController;
 use Modules\Medical\Models\Employee;
-
+use Modules\Medical\Models\EmployeePersonalHistory;
 use Shuchkin\SimpleXLSX;
 
 class EmployeeController extends AdminController
@@ -196,10 +196,42 @@ class EmployeeController extends AdminController
         $data['employee'] = $employee->where('id', $id)->first();
         if (!$data['employee']) throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound('No record found');
 
-        $group = $this->request->getVar('group') ?? "profile";
+        $menu1 = $this->request->getVar('menu1') ?? "profile";
+        $menu2 = $this->request->getVar('menu2') ?? "";
+        $menu3 = $this->request->getVar('menu3') ?? "";
 
-        $data['group'] = $group;
-        return view($this->viewPath . '\view', $data);
+        $data['menu1'] = $menu1;
+
+        if ($menu1 == 'emr' && $menu2 == '')
+            $menu2 = 'hpi';
+
+        $data['menu2'] = $menu2;
+
+        if ($menu1 == 'emr') {
+            if ($menu2 == 'hpi') {
+                return view($this->viewPath . '\emr\hpi', $data);
+            }
+            if ($menu2 == 'ce') {
+                return view($this->viewPath . '\emr\clinical_examination', $data);
+            }
+            if ($menu2 == 'history') {
+                if ($menu3 == '')
+                    $menu3 = 'pmh';
+
+                $data['menu3'] = $menu3;
+                if ($menu3 == 'pmh')
+                    return view($this->viewPath . '\emr\history\past_medical_history', $data);
+                if ($menu3 == 'personal') {
+                    $history = new EmployeePersonalHistory();
+                    $data['personal_history'] = $history->where('employee_id', $id)->first();
+                    return view($this->viewPath . '\emr\history\personal_history', $data);
+                }
+                if ($menu3 == 'family')
+                    return view($this->viewPath . '\emr\history\family_history', $data);
+            }
+        }
+
+        return view($this->viewPath . '\profile', $data);
     }
 
     /*
@@ -217,5 +249,27 @@ class EmployeeController extends AdminController
         $session->setFlashdata('success', 'Successfully deleted the employee');
 
         return redirect()->route('admin.employees');
+    }
+
+    /*
+    * save Employee Personal History
+    */
+    public function savePersonalHistory($id)
+    {
+        $input = $this->request->getVar(null, FILTER_SANITIZE_STRING);
+        $history = new EmployeePersonalHistory();
+        $history->where('employee_id', $id);
+        $history->delete();
+
+        $input['employee_id'] = $id;
+
+        $input['created_by'] = session()->get('id');
+
+        $history->save($input);
+
+        $session = session();
+        $session->setFlashdata('success', 'Employee history saved successfully');
+
+        return redirect()->back();
     }
 }

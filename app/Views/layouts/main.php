@@ -21,6 +21,12 @@
         .card-title {
             font-size: 1.4rem;
         }
+
+        label {
+            font-weight: normal !important;
+            margin-bottom: 0;
+            font-size: 0.9rem;
+        }
     </style>
 </head>
 <!--
